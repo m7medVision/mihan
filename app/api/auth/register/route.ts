@@ -1,14 +1,7 @@
 import { users } from "@/db/schema";
+import { hashPassword } from "@/lib/utilities";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
-
-// TODO: Move this to a shared utility file
-function hashPassword(password: string) {
-  const hash = crypto.createHash("sha256"); // You can use 'sha256', 'sha512', etc.
-  hash.update(password);
-  return hash.digest("hex"); // Convert to hexadecimal format
-}
 
 export async function POST(req: NextRequest) {
   const db = drizzle(process.env.DATABASE_URL!);
