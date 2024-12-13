@@ -4,6 +4,7 @@ import { users } from "@/db/schema"; // Your schema
 import { cookies } from "next/headers";
 import { compare } from "@/lib/utilities";
 import { eq } from "drizzle-orm";
+import jwt from "jsonwebtoken";
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,16 +38,16 @@ export async function POST(req: NextRequest) {
         { status: 401 },
       ); // Unauthorized
     }
-    // TODO: appy jwt token instead of this cookie
-    const cookiesStore = await cookies();
-    cookiesStore.set("userId", user[0].id.toString(), {
-      httpOnly: true, // Important for security
-      secure: process.env.NODE_ENV === "production", // Secure in production, optional otherwise
-      sameSite: "strict",
-      maxAge: 30 * 24 * 60 * 60, // expires after 30 days
-      path: "/",
+    const token = jwt.sign({ userId: user[0].id }, process.env.JWT_SECRET!, {
+      expiresIn: "30d",
     });
-
+    const cookiesStore = await cookies();
+    cookiesStore.set("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 30 * 24 * 60 * 60, // 30 days
+    });
     return NextResponse.json({ id: user[0].id, email: user[0].email });
   } catch (error) {
     console.error("Error during login:", error);

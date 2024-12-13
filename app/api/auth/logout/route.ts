@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 export async function POST(req: NextRequest) {
   try {
     const cookiesStore = await cookies();
-    cookiesStore.set("userId", "", {
+    cookiesStore.set("token", "", {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "strict",
