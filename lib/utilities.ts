@@ -4,3 +4,7 @@ export function hashPassword(password: string) {
   hash.update(password);
   return hash.digest("hex"); // Convert to hexadecimal format
 }
+
+export function compare(password: string, hash: string) {
+  return hashPassword(password) === hash;
+}
