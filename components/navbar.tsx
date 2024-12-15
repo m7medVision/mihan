@@ -2,14 +2,16 @@
 
 import * as React from "react"
 import Link from "next/link"
-import { User, Briefcase, LogIn } from 'lucide-react'
+import { User, Briefcase, LogIn, LogOut } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
+  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
+  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {
@@ -22,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // TODO: This should be replaced with actual auth logic
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // TODO: This should be replaced with actual auth logic
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
@@ -48,31 +50,48 @@ const Navbar = () => {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
+              {
+                isLoggedIn && (
+                  <NavigationMenuItem>
+                    <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="p-4 bg-popover rounded-md shadow-md space-y-2 w-60">
+                        <li>
+                          <Link href="/" passHref>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item One</NavigationMenuLink>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/" passHref>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item Two</NavigationMenuLink>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/" passHref>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item Three</NavigationMenuLink>
+                          </Link>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                )
+              }
             </NavigationMenuList>
           </NavigationMenu>
         </div>
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <nav className="flex items-center">
             {isLoggedIn ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="icon">
-                    <User className="h-5 w-5" />
-                    <span className="sr-only">Toggle user menu</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem>Profile</DropdownMenuItem>
-                  <DropdownMenuItem>Applications</DropdownMenuItem>
-                  <DropdownMenuItem>Settings</DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => setIsLoggedIn(false)}>
-                    Log out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+              <div className="flex items-center space-x-2">
+                <Button variant="outline">
+                  <div className="text-muted-foreground">something@gmail.com</div>
+                  <User className="h-5 w-5" />
+                </Button>
+                <Button variant="default">
+                  <LogOut className="mr-2 h-5 w-5" />
+                  Logout
+                </Button>
+              </div>
             ) : (
               <div className="flex items-center space-x-2">
                 <Link href="/login" passHref>
