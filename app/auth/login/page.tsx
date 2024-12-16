@@ -55,7 +55,7 @@ export default function LoginPage() {
         description: "You have been successfully logged in.",
         variant: "default",
       })
-      router.push("/dashboard")
+      router.push("/")
       router.refresh()
     },
     onError: () => {
