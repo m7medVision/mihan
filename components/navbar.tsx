@@ -53,22 +53,26 @@ const Navbar = () => {
               {
                 isLoggedIn && (
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                    <NavigationMenuTrigger>Admin</NavigationMenuTrigger>
                     <NavigationMenuContent>
                       <ul className="p-4 bg-popover rounded-md shadow-md space-y-2 w-60">
                         <li>
                           <Link href="/" passHref>
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item One</NavigationMenuLink>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">
+                              Applications
+                            </NavigationMenuLink>
                           </Link>
                         </li>
                         <li>
                           <Link href="/" passHref>
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item Two</NavigationMenuLink>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">
+                              New Job
+                            </NavigationMenuLink>
                           </Link>
                         </li>
                         <li>
                           <Link href="/" passHref>
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">Sub Item Three</NavigationMenuLink>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
                           </Link>
                         </li>
                       </ul>
