@@ -1,5 +1,3 @@
-"use client"
-
 import * as React from "react"
 import Link from "next/link"
 import { User, Briefcase, LogIn, LogOut } from 'lucide-react'
@@ -15,10 +13,12 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import { NewJobDialog } from "./new-job-dialog"
+import { getUserFromToken } from "@/lib/actions"
+import { LogoutButton } from "./logout"
 
-const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // TODO: This should be replaced with actual auth logic
-
+const Navbar = async () => {
+  const userData = await getUserFromToken()
+  const isLoggedIn = !userData.error
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
       <div className="container flex h-14 items-center justify-between px-4">
@@ -70,23 +70,20 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className="flex items-center space-x-2">
                 <Button variant="outline">
-                  <div className="text-muted-foreground">something@gmail.com</div>
+                  <div className="text-muted-foreground">{userData.email}</div>
                   <User className="h-5 w-5" />
                 </Button>
-                <Button variant="default">
-                  <LogOut className="mr-2 h-5 w-5" />
-                  Logout
-                </Button>
+                <LogoutButton />
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <Link href="/login" passHref>
+                <Link href="/auth/login" passHref>
                   <Button variant="outline">
                     <LogIn className="mr-2 h-5 w-5" />
                     Log in
                   </Button>
                 </Link>
-                <Link href="/signup" passHref>
+                <Link href="/auth/register" passHref>
                   <Button variant="default">Sign up</Button>
                 </Link>
               </div>
