@@ -33,7 +33,7 @@ export default function JobCard({ title, type, salary, skills, date, description
         </div>
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="">
         <Button className="w-full">Apply Now</Button>
       </CardFooter>
     </Card>

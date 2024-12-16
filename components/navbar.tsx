@@ -14,9 +14,10 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { NewJobDialog } from "./new-job-dialog"
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // TODO: This should be replaced with actual auth logic
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // TODO: This should be replaced with actual auth logic
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
@@ -35,13 +36,6 @@ const Navbar = () => {
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
-              <NavigationMenuItem>
-                <Link href="/post-job" legacyBehavior passHref>
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Post a Job
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
               {
                 isLoggedIn && (
                   <NavigationMenuItem>
@@ -49,18 +43,14 @@ const Navbar = () => {
                     <NavigationMenuContent>
                       <ul className="p-4 bg-popover rounded-md shadow-md space-y-2 w-60">
                         <li>
-                          <Link href="/" passHref>
+                          <Link href="/admin/application" passHref>
                             <NavigationMenuLink className="text-muted-foreground hover:text-foreground">
                               Applications
                             </NavigationMenuLink>
                           </Link>
                         </li>
                         <li>
-                          <Link href="/" passHref>
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">
-                              New Job
-                            </NavigationMenuLink>
-                          </Link>
+                          <NewJobDialog />
                         </li>
                         <li>
                           <Link href="/" passHref>
