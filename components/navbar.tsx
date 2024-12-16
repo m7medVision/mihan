@@ -14,17 +14,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true) // TODO: This should be replaced with actual auth logic
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false) // TODO: This should be replaced with actual auth logic
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
