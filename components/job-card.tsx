@@ -1,25 +1,21 @@
-import { Badge } from "@/components/ui/badge"
+import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+
 interface JobCardProps {
   title: string;
-  type: string;
   salary: number;
   skills: string;
   date: string;
   description: string;
 }
 
-export default function JobCard({ title, type, salary, skills, date, description }: JobCardProps) {
+export default function JobCard({ title, salary, skills, date, description }: JobCardProps) {
   return (
-    <Card className="w-full max-w-sm">
+    <Card className="flex flex-col h-full">
       <CardHeader>
-        <div className="space-y-1">
-          <CardTitle className="text-xl font-semibold">{title}</CardTitle>
-          <Badge variant="secondary">{type}</Badge>
-        </div>
+        <h2 className="text-lg font-semibold">{title}</h2>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="flex-grow space-y-4">
         <div className="space-y-1">
           <p className="text-sm text-muted-foreground">
             Salary: <span className="font-medium text-foreground">{salary}</span>
@@ -33,9 +29,9 @@ export default function JobCard({ title, type, salary, skills, date, description
         </div>
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
-      <CardFooter className="">
+      <CardFooter className="mt-auto">
         <Button className="w-full">Apply Now</Button>
       </CardFooter>
     </Card>
-  );
+  )
 }
