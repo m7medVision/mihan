@@ -7,9 +7,9 @@ import { z } from "zod"
 import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
-import { NavigationMenuLink } from "@radix-ui/react-navigation-menu"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "@/hooks/use-toast"
+import { useState } from "react"
 
 const formSchema = z.object({
   title: z.string().nonempty("Title is required"),
@@ -22,6 +22,7 @@ const formSchema = z.object({
 })
 
 export function NewJobDialog() {
+  const [open, setOpen] = useState(false)
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -77,14 +78,19 @@ interface FormData {
     date: string;
 }
 
-function onSubmit(data: FormData) {
-    createJobMutation.mutate(data)
-}
+const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await createJobMutation.mutateAsync(values)
+      form.reset()
+    } catch (error) {
+      // Handle error
+    }
+  }
 
   return (
-    <Dialog>
-      <DialogTrigger>
-          New Job
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger className="text-muted-foreground hover:text-foreground">
+        Create New Job
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
