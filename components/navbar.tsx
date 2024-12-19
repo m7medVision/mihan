@@ -43,19 +43,15 @@ const Navbar = async () => {
                     <NavigationMenuContent>
                       <ul className="p-4 bg-popover rounded-md shadow-md space-y-2 w-60">
                         <li>
-                          <Link href="/admin/application">
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">
-                              Applications
-                            </NavigationMenuLink>
-                          </Link>
+                          <NavigationMenuLink href="/admin/application" className="text-muted-foreground hover:text-foreground">
+                            Applications
+                          </NavigationMenuLink>
                         </li>
                         <li>
                           <NewJobDialog />
                         </li>
                         <li>
-                          <Link href="/my-job">
-                            <NavigationMenuLink className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
-                          </Link>
+                          <NavigationMenuLink href="/my-job" className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
                         </li>
                       </ul>
                     </NavigationMenuContent>
