@@ -77,4 +77,17 @@ export const getApplications = async () => {
     return userApplications;
 }
 
+export const getMyJobs = async () => {
+    const user = await getUserFromToken();
+    if ("error" in user) {
+        return []
+    }
+
+    const userJobs = await db
+        .select()
+        .from(jobs)
+        .where(eq(jobs.userId, user.id));
+    return userJobs;
+}
+
     
