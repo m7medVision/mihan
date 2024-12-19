@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { jobs } from "@/db/schema";
+import { applications, jobs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyAuth } from "@/lib/utilities";
 
@@ -60,6 +60,11 @@ export async function DELETE(req: NextRequest) {
         { status: 404 }
       );
     }
+    
+    // Delete all applications for the job
+    await db
+      .delete(applications)
+      .where(eq(applications.jobId, job_id));
 
     // Delete the job
     await db
