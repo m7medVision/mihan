@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
         },
       })
       .from(applications)
-      .leftJoin(jobs, eq(applications.jobId, jobs.id))
+      .innerJoin(jobs, eq(applications.jobId, jobs.id))
       .where(eq(jobs.userId, userId));
 
     return NextResponse.json(userApplications);

@@ -1,6 +1,6 @@
 "use server"
 
-import { jobs } from "@/db/schema";
+import { applications, jobs } from "@/db/schema";
 import { db } from "./db";
 import { NextRequest } from "next/server";
 import jwt from "jsonwebtoken";
@@ -49,3 +49,32 @@ export const getUserFromToken = async () => {
         return { error: "Internal Server Error", status: 500 };
     }
 }
+
+export const getApplications = async () => {
+    const user = await getUserFromToken();
+    if ("error" in user) {
+        return []
+    }
+
+    const userApplications = await db
+        .select({
+        id: applications.id,
+        name: applications.name,
+        email: applications.email,
+        photo: applications.photo,
+        cv: applications.cv,
+        job_id: applications.jobId,
+        job: {
+            id: jobs.id,
+            title: jobs.title,
+            type: jobs.type,
+            salary: jobs.salary,
+        },
+        })
+        .from(applications)
+        .innerJoin(jobs, eq(applications.jobId, jobs.id))
+        .where(eq(jobs.userId, user.id));
+    return userApplications;
+}
+
+    
