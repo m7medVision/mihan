@@ -12,9 +12,11 @@ export default async function Home() {
           email={application.email}
           jobTitle={application.job.title}
           jobType={application.job.type}
+          skills={application.job.skills}
           salary={application.job.salary}
           photo={application.photo}
           cv={application.cv}
+          appliedAt={application.appliedAt}
         />
       ))}
     </div>

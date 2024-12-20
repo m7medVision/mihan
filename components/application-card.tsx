@@ -11,6 +11,8 @@ interface ApplicationCardProps {
   salary: number;
   photo: string | null;
   cv: string;
+  skills: string;
+  appliedAt: string;
 }
 
 export default function ApplicationCard({ 
@@ -20,7 +22,13 @@ export default function ApplicationCard({
   jobType,
   salary,
   cv,
+  skills,
+  appliedAt,
 }: ApplicationCardProps) {
+  let skillsArray = [] as string[]
+  if (skills.includes(',')) {
+    skillsArray = skills.split(',')
+  }
   return (
     <Card className="max-w-2xl">
       <CardHeader className="space-y-2">
@@ -32,7 +40,9 @@ export default function ApplicationCard({
           <Mail className="h-4 w-4" />
           <span>{email}</span>
         </div>
-        <p className="text-sm text-muted-foreground">Applied: {new Date().toLocaleDateString()}</p>
+        <p className="text-sm text-muted-foreground">Applied: 
+          <time dateTime={appliedAt}>{appliedAt}</time>
+        </p>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="grid gap-4">
@@ -56,9 +66,16 @@ export default function ApplicationCard({
           <div className="grid gap-2">
             <h3 className="font-semibold">Required Skills</h3>
             <div className="flex flex-wrap gap-2">
-              <Badge variant="outline">React</Badge>
-              <Badge variant="outline">Spring Boot</Badge>
-              <Badge variant="outline">AWS</Badge>
+              {
+                // if skillsArray is empty, show a message
+                skillsArray.length === 0 ? (
+                  <p className="text-muted-foreground">{skills}</p>
+                ) : (
+                  skillsArray.map((skill, index) => (
+                    <Badge key={index}>{skill}</Badge>
+                  ))
+                )
+              }
             </div>
           </div>
         </div>

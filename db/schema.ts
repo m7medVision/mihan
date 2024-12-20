@@ -33,4 +33,5 @@ export const applications = pgTable("applications", {
   photo: text(),
   cv: text().notNull(),
   jobId: integer("job_id").references(() => jobs.id).notNull(),
+  createdAt: date("created_at").default("now()").notNull(),
 });

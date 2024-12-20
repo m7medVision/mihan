@@ -64,6 +64,7 @@ export const getApplications = async () => {
         photo: applications.photo,
         cv: applications.cv,
         job_id: applications.jobId,
+        appliedAt: applications.createdAt,
         job: {
             id: jobs.id,
             title: jobs.title,
