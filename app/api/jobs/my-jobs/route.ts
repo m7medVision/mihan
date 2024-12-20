@@ -6,7 +6,7 @@ import { verifyAuth } from "@/lib/utilities";
 import { z } from "zod";
 
 const DeleteJobSchema = z.object({
-  job_id: z.coerce.number(),
+  job_id: z.number(),
 });
 
 export async function GET(req: NextRequest) {
@@ -45,7 +45,7 @@ export async function DELETE(req: NextRequest) {
     }
 
     // delete schema
-    const result = DeleteJobSchema.safeParse(req.body);
+    const result = DeleteJobSchema.safeParse(await req.json());
     if (!result.success) {
       return NextResponse.json(
         { error: "Validation error", details: result.error.flatten() },
