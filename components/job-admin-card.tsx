@@ -22,6 +22,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 
 interface JobAdminProps {
   id: number
@@ -41,7 +42,7 @@ export default function JobAdmin({
   description = "Backend development in Java, Spring Boot - Fron..",
 }: JobAdminProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-
+  const router = useRouter()
   const deleteJobMutation = useMutation({
     mutationFn: async (jobId: number) => {
       const response = await fetch("/api/jobs/my-jobs", {
@@ -60,6 +61,7 @@ export default function JobAdmin({
       return response.json()
     },
     onSuccess: () => {
+      router.refresh()
       toast({
         title: "Job deleted",
         description: "The job has been successfully deleted.",
