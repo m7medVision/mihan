@@ -13,6 +13,7 @@ export function LogoutButton() {
         });
         if (response.ok) {
             router.push("/auth/login");
+            router.refresh();
         }
     }
 
