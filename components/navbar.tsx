@@ -12,7 +12,6 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
-import { NewJobDialog } from "./new-job-dialog"
 import { getUserFromToken } from "@/lib/actions"
 import { LogoutButton } from "./logout"
 
@@ -48,10 +47,10 @@ const Navbar = async () => {
                           </NavigationMenuLink>
                         </li>
                         <li>
-                          <NewJobDialog />
+                          <NavigationMenuLink href="/admin/jobs" className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
                         </li>
                         <li>
-                          <NavigationMenuLink href="/admin/jobs" className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
+                          <NavigationMenuLink href="/admin/new-job" className="text-muted-foreground hover:text-foreground">New job</NavigationMenuLink>
                         </li>
                       </ul>
                     </NavigationMenuContent>
