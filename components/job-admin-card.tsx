@@ -22,7 +22,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { useState } from "react"
-import { revalidatePath } from "next/cache"
 
 interface JobAdminProps {
   id: number
@@ -66,8 +65,6 @@ export default function JobAdmin({
         description: "The job has been successfully deleted.",
         variant: "default",
       })
-      setIsDialogOpen(false)
-      revalidatePath("/admin/jobs")
     },
     onError: (error: Error) => {
       toast({
@@ -113,7 +110,7 @@ export default function JobAdmin({
         </div>
       </CardContent>
       <CardFooter>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <Dialog open={isDialogOpen}>
           <DialogTrigger asChild>
             <Button variant="destructive" className="w-full">
               <Trash2 className="mr-2 h-4 w-4" />

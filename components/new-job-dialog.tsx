@@ -89,8 +89,8 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="text-muted-foreground hover:text-foreground">
+    <Dialog open={open}>
+      <DialogTrigger className="text-muted-foreground hover:text-foreground" onClick={() => setOpen(true)}>
         Create New Job
       </DialogTrigger>
       <DialogContent>
