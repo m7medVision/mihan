@@ -12,7 +12,7 @@ export default async function Page() {
                         key={job.id}
                         title={job.title}
                         salary={job.salary}
-                        // requiredSkills={job.requiredSkills}
+                        requiredSkills={job.skills}
                         // postedDate={job.postedDate}
                         description={job.description}
                     />

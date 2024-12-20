@@ -28,7 +28,7 @@ interface JobAdminProps {
   id: number
   title: string
   salary: number
-  requiredSkills?: string[]
+  requiredSkills?: string
   postedDate?: string
   description: string
 }
@@ -37,7 +37,7 @@ export default function JobAdmin({
   id,
   title = "Software Developer",
   salary = 55000,
-  requiredSkills = ["React", "Spring Boot", "AWS"],
+  requiredSkills = "React, Spring Boot, AWS",
   postedDate = "11/12/2024",
   description = "Backend development in Java, Spring Boot - Fron..",
 }: JobAdminProps) {
@@ -103,7 +103,7 @@ export default function JobAdmin({
           </p>
           <p className="text-sm text-muted-foreground">
             <span className="font-medium text-foreground">Required Skills:</span>{" "}
-            {requiredSkills.join(", ")}
+            {requiredSkills}
           </p>
           <p className="text-sm text-muted-foreground">
             <span className="font-medium text-foreground">Posted:</span>{" "}
@@ -113,8 +113,8 @@ export default function JobAdmin({
         </div>
       </CardContent>
       <CardFooter>
-        <Dialog open={isDialogOpen}>
-          <DialogTrigger asChild onClick={() => setIsDialogOpen(true)}>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
             <Button variant="destructive" className="w-full">
               <Trash2 className="mr-2 h-4 w-4" />
               Delete Job
