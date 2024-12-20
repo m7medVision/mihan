@@ -11,6 +11,7 @@ import { useMutation } from "@tanstack/react-query"
 import { toast } from "@/hooks/use-toast"
 import { useState } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   title: z.string().nonempty("Title is required"),
@@ -23,6 +24,7 @@ const formSchema = z.object({
 })
 
 export function NewJobDialog() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -53,6 +55,8 @@ export function NewJobDialog() {
       return response.json()
     },
     onSuccess: () => {
+      setOpen(false)
+      router.refresh()
       toast({
         title: "Job created",
         description: "The job has been successfully created.",
