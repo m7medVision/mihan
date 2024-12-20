@@ -51,7 +51,7 @@ const Navbar = async () => {
                           <NewJobDialog />
                         </li>
                         <li>
-                          <NavigationMenuLink href="/my-job" className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
+                          <NavigationMenuLink href="/admin/jobs" className="text-muted-foreground hover:text-foreground">My Job</NavigationMenuLink>
                         </li>
                       </ul>
                     </NavigationMenuContent>
