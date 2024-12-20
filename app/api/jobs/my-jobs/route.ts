@@ -3,6 +3,11 @@ import { db } from "@/lib/db";
 import { applications, jobs } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { verifyAuth } from "@/lib/utilities";
+import { z } from "zod";
+
+const DeleteJobSchema = z.object({
+  job_id: z.coerce.number(),
+});
 
 export async function GET(req: NextRequest) {
   try {
@@ -39,13 +44,16 @@ export async function DELETE(req: NextRequest) {
       );
     }
 
-    const { job_id } = await req.json();
-    if (!job_id) {
+    // delete schema
+    const result = DeleteJobSchema.safeParse(req.body);
+    if (!result.success) {
       return NextResponse.json(
-        { error: "Job ID is required" },
+        { error: "Validation error", details: result.error.flatten() },
         { status: 400 }
       );
     }
+
+    const { job_id } = result.data;
 
     // Verify job ownership
     const job = await db
@@ -60,7 +68,7 @@ export async function DELETE(req: NextRequest) {
         { status: 404 }
       );
     }
-    
+
     // Delete all applications for the job
     await db
       .delete(applications)
