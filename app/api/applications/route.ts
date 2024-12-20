@@ -26,6 +26,7 @@ export async function GET(req: NextRequest) {
           id: jobs.id,
           title: jobs.title,
           type: jobs.type,
+          skills: jobs.skills,
           salary: jobs.salary,
         },
       })
@@ -62,7 +63,7 @@ export async function POST(req: NextRequest) {
       .from(jobs)
       .where(eq(jobs.id, job_id))
       .limit(1);
-    
+
     if (!job.length) {
       return NextResponse.json(
         { error: "Job not found" },

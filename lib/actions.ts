@@ -69,6 +69,7 @@ export const getApplications = async () => {
             title: jobs.title,
             type: jobs.type,
             salary: jobs.salary,
+            skills: jobs.skills,
         },
         })
         .from(applications)
