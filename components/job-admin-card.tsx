@@ -61,6 +61,7 @@ export default function JobAdmin({
       return response.json()
     },
     onSuccess: () => {
+      setIsDialogOpen(false)
       router.refresh()
       toast({
         title: "Job deleted",
@@ -113,7 +114,7 @@ export default function JobAdmin({
       </CardContent>
       <CardFooter>
         <Dialog open={isDialogOpen}>
-          <DialogTrigger asChild>
+          <DialogTrigger asChild onClick={() => setIsDialogOpen(true)}>
             <Button variant="destructive" className="w-full">
               <Trash2 className="mr-2 h-4 w-4" />
               Delete Job
