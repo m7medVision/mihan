@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "@/hooks/use-toast"
 import { useState } from "react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const formSchema = z.object({
   title: z.string().nonempty("Title is required"),
@@ -117,9 +118,20 @@ const onSubmit = async (values: z.infer<typeof formSchema>) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Job Type</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Enter job type" {...field} />
-                  </FormControl>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select job type" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="full-time">Full Time</SelectItem>
+                      <SelectItem value="part-time">Part Time</SelectItem>
+                      <SelectItem value="contract">Contract</SelectItem>
+                      <SelectItem value="freelance">Freelance</SelectItem>
+                      <SelectItem value="internship">Internship</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
