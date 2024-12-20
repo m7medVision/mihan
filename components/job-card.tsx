@@ -1,8 +1,9 @@
 import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
+import { ApplyJobDialog } from "./apply-job-dialog"
 
 interface JobCardProps {
+  id: number;
   title: string;
   type: string;
   salary: number;
@@ -11,7 +12,7 @@ interface JobCardProps {
   description: string;
 }
 
-export default function JobCard({ title, type, salary, skills, date, description }: JobCardProps) {
+export default function JobCard({ title, type, salary, skills, date, description, id }: JobCardProps) {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader>
@@ -35,7 +36,7 @@ export default function JobCard({ title, type, salary, skills, date, description
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
       <CardFooter className="mt-auto">
-        <Button className="w-full">Apply Now</Button>
+        <ApplyJobDialog jobId={id} />
       </CardFooter>
     </Card>
   )
