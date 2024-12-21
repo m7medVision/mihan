@@ -1,6 +1,11 @@
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ApplyJobDialog } from "./apply-job-dialog"
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ApplyJobDialog } from "./apply-job-dialog";
 
 interface JobCardProps {
   id: number;
@@ -10,9 +15,19 @@ interface JobCardProps {
   skills: string;
   date: string;
   description: string;
+  isFeatured?: boolean;
 }
 
-export default function JobCard({ title, type, salary, skills, date, description, id }: JobCardProps) {
+export default function JobCard({
+  isFeatured,
+  title,
+  type,
+  salary,
+  skills,
+  date,
+  description,
+  id,
+}: JobCardProps) {
   return (
     <Card className="flex flex-col h-full">
       <CardHeader>
@@ -24,10 +39,12 @@ export default function JobCard({ title, type, salary, skills, date, description
       <CardContent className="flex-grow space-y-4">
         <div className="space-y-1">
           <p className="text-sm text-muted-foreground">
-            Salary: <span className="font-medium text-foreground">{salary}</span>
+            Salary:{" "}
+            <span className="font-medium text-foreground">{salary}</span>
           </p>
           <p className="text-sm text-muted-foreground">
-            Required Skills: <span className="font-medium text-foreground">{skills}</span>
+            Required Skills:{" "}
+            <span className="font-medium text-foreground">{skills}</span>
           </p>
           <p className="text-sm text-muted-foreground">
             Posted: <span className="font-medium text-foreground">{date}</span>
@@ -36,8 +53,8 @@ export default function JobCard({ title, type, salary, skills, date, description
         <p className="text-sm text-muted-foreground">{description}</p>
       </CardContent>
       <CardFooter className="mt-auto">
-        <ApplyJobDialog jobId={id} />
+        <ApplyJobDialog isFeatured={isFeatured} jobId={id} />
       </CardFooter>
     </Card>
-  )
+  );
 }

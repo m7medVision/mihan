@@ -1,34 +1,43 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
-import { useMutation } from "@tanstack/react-query"
-import { toast } from "@/hooks/use-toast"
-import { Textarea } from "./ui/textarea"
+} from "@/components/ui/dialog";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "@/hooks/use-toast";
+import { Textarea } from "./ui/textarea";
+import { RainbowButton } from "./ui/rainbow-button";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
   cv: z.string(),
   photo: z.string(),
-})
+});
 
 interface ApplyJobDialogProps {
-  jobId: number
+  isFeatured?: boolean;
+  jobId: number;
 }
 
-export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
+export function ApplyJobDialog({ jobId, isFeatured }: ApplyJobDialogProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,7 +45,7 @@ export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
       email: "",
       cv: "",
     },
-  })
+  });
 
   const applyMutation = useMutation({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
@@ -47,38 +56,41 @@ export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
           ...data,
           job_id: jobId,
         }),
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to submit application")
+        throw new Error("Failed to submit application");
       }
 
-      return response.json()
+      return response.json();
     },
     onSuccess: () => {
       toast({
         title: "Application submitted",
         description: "Your application has been successfully submitted.",
-      })
-      form.reset()
+      });
+      form.reset();
     },
     onError: () => {
       toast({
         title: "Error",
         description: "Failed to submit application. Please try again.",
         variant: "destructive",
-      })
+      });
     },
-  })
+  });
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    await applyMutation.mutateAsync(data)
-  }
-
+    await applyMutation.mutateAsync(data);
+  };
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="w-full">Apply Now</Button>
+        {isFeatured ? (
+          <RainbowButton className="w-full">Apply Now</RainbowButton>
+        ) : (
+          <Button className="w-full">Apply Now</Button>
+        )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -106,7 +118,11 @@ export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="ali@example.com" type="email" {...field} />
+                    <Input
+                      placeholder="ali@example.com"
+                      type="email"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -119,7 +135,10 @@ export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
                 <FormItem>
                   <FormLabel>CV URL</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="5 years of frontend development experience..." {...field} />
+                    <Textarea
+                      placeholder="5 years of frontend development experience..."
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -132,18 +151,25 @@ export function ApplyJobDialog({ jobId }: ApplyJobDialogProps) {
                 <FormItem>
                   <FormLabel>Photo URL (Optional)</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com/your-photo.jpg" {...field} />
+                    <Input
+                      placeholder="https://example.com/your-photo.jpg"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={applyMutation.isLoading}>
+            <Button
+              type="submit"
+              className="w-full"
+              disabled={applyMutation.isLoading}
+            >
               {applyMutation.isLoading ? "Submitting..." : "Submit Application"}
             </Button>
           </form>
         </Form>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
