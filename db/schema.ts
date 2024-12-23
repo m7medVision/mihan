@@ -5,6 +5,7 @@ import {
   smallserial,
   serial,
   date,
+  timestamp,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -32,6 +33,8 @@ export const applications = pgTable("applications", {
   email: text().notNull(),
   photo: text(),
   cv: text().notNull(),
-  jobId: integer("job_id").references(() => jobs.id).notNull(),
-  createdAt: date("created_at").default("now()").notNull(),
+  jobId: integer("job_id")
+    .references(() => jobs.id)
+    .notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });

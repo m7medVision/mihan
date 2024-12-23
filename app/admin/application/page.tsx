@@ -16,7 +16,7 @@ export default async function Home() {
           salary={application.job.salary}
           photo={application.photo}
           cv={application.cv}
-          appliedAt={application.appliedAt}
+          appliedAt={application.appliedAt.toUTCString()}
         />
       ))}
     </div>

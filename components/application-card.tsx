@@ -1,7 +1,7 @@
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { Mail } from 'lucide-react'
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Mail } from "lucide-react";
 
 interface ApplicationCardProps {
   name: string;
@@ -15,7 +15,7 @@ interface ApplicationCardProps {
   appliedAt: string;
 }
 
-export default function ApplicationCard({ 
+export default function ApplicationCard({
   name,
   email,
   jobTitle,
@@ -25,10 +25,11 @@ export default function ApplicationCard({
   skills,
   appliedAt,
 }: ApplicationCardProps) {
-  let skillsArray = [] as string[]
-  if (skills.includes(',')) {
-    skillsArray = skills.split(',')
+  let skillsArray = [] as string[];
+  if (skills.includes(",")) {
+    skillsArray = skills.split(",");
   }
+  const salaryStr = salary.toLocaleString().replace(/,/g, ",");
   return (
     <Card className="max-w-2xl">
       <CardHeader className="space-y-2">
@@ -40,8 +41,8 @@ export default function ApplicationCard({
           <Mail className="h-4 w-4" />
           <span>{email}</span>
         </div>
-        <p className="text-sm text-muted-foreground">Applied: 
-          <time dateTime={appliedAt}>{appliedAt}</time>
+        <p className="text-sm text-muted-foreground">
+          Applied: <time dateTime={appliedAt}>{appliedAt}</time>
         </p>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -52,15 +53,13 @@ export default function ApplicationCard({
               <div className="text-muted-foreground">Applied Position</div>
               <div>{jobTitle}</div>
               <div className="text-muted-foreground">Salary Expectation</div>
-              <div>{salary}/year</div>
+              <div>{salaryStr} /Year</div>
             </div>
           </div>
           <Separator />
           <div className="grid gap-2">
             <h3 className="font-semibold">Experience</h3>
-            <p className="text-sm text-muted-foreground">
-              {cv}
-            </p>
+            <p className="text-sm text-muted-foreground">{cv}</p>
           </div>
           <Separator />
           <div className="grid gap-2">
@@ -81,6 +80,5 @@ export default function ApplicationCard({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }
-

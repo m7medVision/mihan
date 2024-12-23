@@ -8,10 +8,7 @@ export async function GET(req: NextRequest) {
   try {
     const userId = verifyAuth(req);
     if (!userId) {
-      return NextResponse.json(
-        { error: "Unauthorized" },
-        { status: 401 }
-      );
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
     const userApplications = await db
@@ -39,11 +36,10 @@ export async function GET(req: NextRequest) {
     console.error("Error fetching applications:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-
 
 export async function POST(req: NextRequest) {
   try {
@@ -53,7 +49,7 @@ export async function POST(req: NextRequest) {
     if (!job_id || !name || !email || !cv) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -65,10 +61,7 @@ export async function POST(req: NextRequest) {
       .limit(1);
 
     if (!job.length) {
-      return NextResponse.json(
-        { error: "Job not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Job not found" }, { status: 404 });
     }
 
     // Insert new application
@@ -88,7 +81,8 @@ export async function POST(req: NextRequest) {
     console.error("Error submitting application:", error);
     return NextResponse.json(
       { error: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
+
