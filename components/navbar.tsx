@@ -1,6 +1,6 @@
 import * as React from "react"
 import Link from "next/link"
-import { User, Briefcase, LogIn, LogOut } from 'lucide-react'
+import { User, Briefcase, LogIn, LogOut, Menu } from 'lucide-react'
 
 import { Button } from "@/components/ui/button"
 import {
@@ -14,14 +14,16 @@ import {
 } from "@/components/ui/navigation-menu"
 import { getUserFromToken } from "@/lib/actions"
 import { LogoutButton } from "./logout"
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import MobileNav from "./MobileNav"
 
 const Navbar = async () => {
   const userData = await getUserFromToken()
   const isLoggedIn = !userData.error
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 flex justify-center">
-      <div className="w-screen mx-10 flex h-14 items-center justify-between px-4">
-        <div className="mr-4 hidden md:flex">
+      <div className="w-screen mx-10 h-14 items-center justify-between px-4 hidden md:flex">
+        <div className="mr-4 flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <Briefcase className="h-6 w-6" />
             <span className="hidden font-bold sm:inline-block">Mihan</span>
@@ -85,6 +87,14 @@ const Navbar = async () => {
             )}
           </nav>
         </div>
+      </div>
+      {/* Mobile Nav */}
+      <div className="md:hidden flex justify-between items-center w-full px-4 h-14">
+        <Link href="/" className="flex items-center space-x-2">
+          <Briefcase className="h-6 w-6" />
+          <span className="font-bold">Mihan</span>
+        </Link>
+        <MobileNav isLoggedIn={isLoggedIn} userData={userData} />
       </div>
     </header>
   )

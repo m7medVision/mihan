@@ -4,7 +4,7 @@ import { LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { useRouter } from "next/navigation";
 
-export function LogoutButton() {
+export function LogoutButton({ className }: { className?: string }) {
     const router = useRouter();
     async function logout(e: any) {
         e.preventDefault();
@@ -18,7 +18,7 @@ export function LogoutButton() {
     }
 
     return (
-        <Button onClick={logout} variant="default">
+        <Button onClick={logout} variant="default" className={className}>
             <LogOut className="mr-2 h-5 w-5" />
             Logout
         </Button>
